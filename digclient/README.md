@@ -32,3 +32,14 @@ func (cl *Client) Public() rsa.PublicKey
 func (cl *Client) Sign(r io.Reader, digest []byte, opts crypto.SignerOpts) ([]byte, error)
 func (cl *Client) Verify(msg []byte, signature []byte, key *rsa.PublicKey, opts crypto.SignerOpts) error
 ```
+
+* ##### the DigOpts struct
+
+```go
+type DigOpts struct{}
+    implements the crypto.SignerOpts and crypto.DecrypterOpts interfaces. helper
+    to aid OAEP encryption/decryption and PSS signing/verification.
+
+func (DigOpts) Hash() hash.Hash
+func (DigOpts) HashFunc() crypto.Hash
+```

@@ -2,6 +2,7 @@
 
 I am trying to learn how bitcoin works, so I'm using my little knowledge of go to try and write a sample program of how I think it works. Everything I write is how I think bitcoin works. It will definitely not be accurate because there is lots of cryptography involved that I won't understand because I'm not good at maths. Digcoin just came to me when I was trying to figure which name to give the project folder. LOL!
 Arggh before I forget, there are too many concepts on networking and distributed computing bitcoin implements that I won't understand for the next 5 years soo yah. I think I should name it errcoin.
+
 ### The digcoin Client package
 --------
 
@@ -35,4 +36,14 @@ func (cl *Client) Encrypt(r io.Reader, digest []byte, opts crypto.SignerOpts) ([
 func (cl *Client) Public() rsa.PublicKey
 func (cl *Client) Sign(r io.Reader, digest []byte, opts crypto.SignerOpts) ([]byte, error)
 func (cl *Client) Verify(msg []byte, signature []byte, key *rsa.PublicKey, opts crypto.SignerOpts) error
+```
+
+* ##### the DigOpts struct
+```go
+type DigOpts struct{}
+    implements the crypto.SignerOpts and crypto.DecrypterOpts interfaces. helper
+    to aid OAEP encryption/decryption and PSS signing/verification.
+
+func (DigOpts) Hash() hash.Hash
+func (DigOpts) HashFunc() crypto.Hash
 ```
