@@ -87,7 +87,7 @@ func TestClientsCapabilities(t *testing.T) {
 					t.Fatal("Client2 could not verify client1 signature")
 				}
 				break
-			case 2:
+			case 1:
 				ciph := newCipher(client2, tc.text)
 				if !verify(client3, ciph) {
 					t.Fatal("Client3 could not verify Client2 signature")
