@@ -32,8 +32,8 @@ type DigOpts struct{}
 type Client struct {
 	// Has unexported fields.
 }
-    Client is a digcoin user, it implements the crypto.Signer and
-    crypto.Decrypter interfaces.
+    // Client is a digcoin user, it implements the crypto.Signer and
+    // crypto.Decrypter interfaces.
 
 func New() *Client
 func (cl *Client) Decrypt(r io.Reader, msg []byte, opts crypto.DecrypterOpts) ([]byte, error)
