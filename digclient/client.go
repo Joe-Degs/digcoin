@@ -1,4 +1,7 @@
 /*
+   Package digclient implements a simple client with methods to do basic
+   cryptographic stuff to message digests.
+
    All methods with "Dig" prefix, are totally just for convinience.
    They are supposed to make it easier to do the cryptographic stuff.
    If you want to do cryptographic things with a client without reading
