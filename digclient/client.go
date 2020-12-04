@@ -69,7 +69,7 @@ func (cl *Client) Public() rsa.PublicKey {
 
 // Sign retuns the cryptographic signature of a message digest using a clients rsa private
 // key
-func (cl *Client) Sign(r io.Reader, digest []byte, opts crypto.SignerOpts) ([]byte, error) {
+func (cl *Client) Sign(rand io.Reader, digest []byte, opts crypto.SignerOpts) ([]byte, error) {
 	digOpts, ok := (opts).(*DigOpts)
 	if !ok {
 		digOpts = &DigOpts{}
@@ -83,7 +83,7 @@ func (cl *Client) Sign(r io.Reader, digest []byte, opts crypto.SignerOpts) ([]by
 	}
 	msgHashSum := msgHash.Sum(nil)
 
-	return rsa.SignPSS(r, cl.prikey, digOpts.HashFunc(), msgHashSum, nil)
+	return rsa.SignPSS(rand, cl.prikey, digOpts.HashFunc(), msgHashSum, nil)
 }
 
 // Verify checks the make sure the cryptographic signature of a message digest is right using PSS.
@@ -105,7 +105,7 @@ func (cl *Client) Verify(msg []byte, signature []byte, key *rsa.PublicKey, opts 
 }
 
 // Encrypt uses OAEP(i dont know what it means) to encipher message digests.
-func (cl *Client) Encrypt(r io.Reader, digest []byte, opts crypto.SignerOpts) ([]byte, error) {
+func (cl *Client) Encrypt(rand io.Reader, digest []byte, opts crypto.SignerOpts) ([]byte, error) {
 	digOpts, ok := (opts).(*DigOpts)
 	if !ok {
 		digOpts = &DigOpts{}
@@ -113,16 +113,16 @@ func (cl *Client) Encrypt(r io.Reader, digest []byte, opts crypto.SignerOpts) ([
 
 	// a more secure signature
 	pk := cl.Public()
-	return rsa.EncryptOAEP(digOpts.Hash(), r, &pk, digest, MsgLabel)
+	return rsa.EncryptOAEP(digOpts.Hash(), rand, &pk, digest, MsgLabel)
 }
 
 // Decrypt, deciphers a message digest using the clients rsa private key.
-func (cl *Client) Decrypt(r io.Reader, msg []byte, opts crypto.DecrypterOpts) ([]byte, error) {
+func (cl *Client) Decrypt(rand io.Reader, msg []byte, opts crypto.DecrypterOpts) ([]byte, error) {
 	digOpts, ok := (opts).(*DigOpts)
 	if !ok {
 		digOpts = &DigOpts{}
 	}
-	return rsa.DecryptOAEP(digOpts.Hash(), r, cl.prikey, msg, MsgLabel)
+	return rsa.DecryptOAEP(digOpts.Hash(), rand, cl.prikey, msg, MsgLabel)
 }
 
 // DigVerify checks the authenticity of a cryptographic signature.
