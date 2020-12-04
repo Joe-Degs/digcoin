@@ -1,3 +1,12 @@
+/*
+   All methods with "Dig" prefix, are totally just for convinience.
+   They are supposed to make it easier to do the cryptographic stuff.
+   If you want to do cryptographic things with a client without reading
+   blogposts and documentation on anything cryptography, use them.
+
+   If you want to do it the hard way, go in for the methods without the prefix
+   but make sure to read through the rsa, hash and crypto packages before using them.
+*/
 package digclient
 
 import (
@@ -10,16 +19,6 @@ import (
 	"io"
 	"os"
 )
-
-/*
-   All methods with "Dig" prefix, are totally just for convinience.
-   They are supposed to make it easier to do the cryptographic stuff.
-   If you want to do cryptographic things with a client without reading
-   blogposts and documentation on anything cryptography, use them.
-
-   If you want to do it the hard way, go in for the methods without the prefix
-   but make sure to read through the rsa, hash and crypto packages before using them.
-*/
 
 var (
 	// MsgLabel serves as label for encrypting/decrypting OAEP.
